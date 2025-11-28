@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>投票主題-ListView</h1>
+    <ul>
+        {% for poll in poll_list %}
+        <li>{{ poll.created}} {{poll.subject}}</li>  <!-- 雙括弧:列印用 , 誇湖百分比:邏輯運算，流程控制 -->
+        <br />
+        {% endfor %}
+    </ul>
+</body>
+</html>

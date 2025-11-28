@@ -9,7 +9,7 @@ class Poll(models.Model):   #models.Model 如何與底層資料庫聯繫
     created = models.DateField("建立日期",auto_now_add=True)  #紀錄投票時間(日期)
     
     def __str__(self):              #定義一種資料叫做'self'
-        return self.subjecct
+        return self.subject
 class Option(models.Model):
     title = models.CharField("選項文字", max_length=64)
     votes = models.IntegerField("票數", default=0) #紀錄該項投了幾次[IntegerField>>紀錄整數]
