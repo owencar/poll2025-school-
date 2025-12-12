@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Poll, Option 
-from django.views.generic import ListView, DetailView, RedirectView #一個是獲取資料列表，一個是獲取詳細的資料;RedirectView 仔仔入夜麵食重新導向一次(把變更過的票數重新縣市一次)
-from django.urls import reverse #給他一組路徑規則的名城她會反推一次路徑
+from django.views.generic import ListView, DetailView, RedirectView, CreateView, UpdateView #一個是獲取資料列表，一個是獲取詳細的資料;RedirectView 仔仔入夜麵食重新導向一次(把變更過的票數重新縣市一次)
+from django.urls import reverse, reverse_lazy #給他一組路徑規則的名城她會反推一次路徑
 
 # Create your views here.
 def poll_list(req):   #，定義並接收來自url傳來的req
@@ -41,6 +41,27 @@ class PollVote(RedirectView):  #副屬性:用於重新導向頁面(導項不同�
         #return reverse('poll_view', args=[option.poll_id]) #用鳴子為poll_view的網址反推回去;args=[option.poll_id]把變更過的變數改入poll_id
         return reverse('poll_view', kwargs={'pk':option.poll_id})   #效果同上
     
+class PollCreate(CreateView):
+    model = Poll
+    fields = '__all__'  #只給部分欄位>>ex. ['subject', 'desc']#把模型中有的資料撈出來讓你填入
+    success_url = reverse_lazy('poll_list')  #成功之後要去的地方
 
 
+class PollEdit(UpdateView):
+    model = Poll
+    fields = '__all__'
 
+    def get_success_url(self):
+        return reverse_lazy('poll_view', kwargs={'pk':self.get.object.id})
+
+
+class OptionCreate(CreateView):
+    model = Option
+    fields = ['title']
+
+    def form_valid(self, form):  #介入表單的驗證內容
+        form.instance.poll_id = self.kwards['pid']  #instance:表單對應Option的紀錄
+        return super().form_valid(form) #呼叫表單驗證(form_valvid)繼續進行驗證
+
+    def get_success_url(self):
+        return reverse_lazy('poll_view', kwargs={'pk': self.kwargs['pid']})  #記得把預設變數換掉

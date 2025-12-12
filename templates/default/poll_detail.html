@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="zh-hamt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>查看投票主題</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}投票主題{% endblock %}
+
+{% block main %}
     <h1>{{ poll.subject }}</h1>
     <p>{{ poll.desc }}</p>
     <ul>
@@ -13,5 +10,4 @@
         <li><a href="{% url 'poll_vote' op.id %}">{{ op.title }}</a> - {{ op.votes }}票</li>
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}
