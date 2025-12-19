@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import poll_list, Polllist, PollView, PollVote, PollCreate, PollEdit, OptionCreate
+from .views import poll_list, Polllist, PollView, PollVote, PollCreate, PollEdit, OptionCreate, OptionEdit, PollDelete, OptionDelete
 
 urlpatterns = [
     #path("" , poll_list), #乎較位於views中的東西(ex.poll_list傳送req)
@@ -10,6 +10,9 @@ urlpatterns = [
     path('add', PollCreate.as_view(), name='poll_create'), #新增頭投票主題
     path("<int:pk>/edit", PollEdit.as_view(), name="poll_edit"), #改變投票主題
     path("<int:pid>/add", OptionCreate.as_view(), name="option_create"), #新增投票選項
+    path("<int:oid>/modify", OptionEdit.as_view(), name="option_edit"),
+    path("<int:pk>/delete", PollDelete.as_view(), name='poll_delete'),
+    path("<int:pk>/remove", OptionDelete.as_view(), name='option_delete'),
 ]
 
 #<int:pk>中，pk是預設的變數名稱，無須額外跟listview說，但如果要自訂變數名稱的話要記的跟listview說(在default/views.py中有用到)

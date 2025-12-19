@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Poll, Option 
-from django.views.generic import ListView, DetailView, RedirectView, CreateView, UpdateView #一個是獲取資料列表，一個是獲取詳細的資料;RedirectView 仔仔入夜麵食重新導向一次(把變更過的票數重新縣市一次)
+from django.views.generic import ListView, DetailView, RedirectView, CreateView, UpdateView, DeleteView #一個是獲取資料列表，一個是獲取詳細的資料;RedirectView 仔仔入夜麵食重新導向一次(把變更過的票數重新縣市一次)#create新增、update修改、delete刪除
 from django.urls import reverse, reverse_lazy #給他一組路徑規則的名城她會反推一次路徑
 
 # Create your views here.
@@ -60,8 +60,25 @@ class OptionCreate(CreateView):
     fields = ['title']
 
     def form_valid(self, form):  #介入表單的驗證內容
-        form.instance.poll_id = self.kwards['pid']  #instance:表單對應Option的紀錄
+        form.instance.poll_id = self.kwargs['pid']  #instance:表單對應Option的紀錄
         return super().form_valid(form) #呼叫表單驗證(form_valvid)繼續進行驗證
 
     def get_success_url(self):
-        return reverse_lazy('poll_view', kwargs={'pk': self.kwargs['pid']})  #記得把預設變數換掉
+        return reverse_lazy('poll_view', kwargs={'pk': self.kwargs['pid']})  #記得把預設變數換
+    
+class OptionEdit(UpdateView):
+    model = Option
+    fields = ['title']
+    pk_url_kwarg = 'oid'
+    
+    def get_success_url(self):
+        return reverse_lazy('poll_view', kwargs={'pk': self.object.poll_id})  #object路的是正在修改項目
+
+class PollDelete(DeleteView):
+    model = Poll
+    success_url = reverse_lazy('poll_list') #結束後去哪
+
+class OptionDelete(DeleteView):
+    model = Option
+    def get_success_url(self): #要回的地方不一樣
+        return reverse_lazy('poll_view', kwargs={'pk': self.object.poll_id})

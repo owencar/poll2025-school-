@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
+from django.urls import reverse, reverse_lazy
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("poll/", include("default.urls"))#include>>在所有呼叫default路徑前面都加上[poll/]
+    path("poll/", include("default.urls")),#include>>在所有呼叫default路徑前面都加上[poll/]
+    path('', RedirectView.as_view(url=reverse_lazy('poll_list'))),
 ] 
