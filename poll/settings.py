@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'default',   #啟用修正過後的APP
+    'chat',
 ]
 
 MIDDLEWARE = [

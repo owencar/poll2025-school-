@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}留言板區{% endblock %}
+
+{% block main %}
+ <h1>群組名稱-GroupView</h1>
+    <ul>
+        {% for group in poll_list %}
+        <li>{{ poll.created}} {{poll.subject}}</li>  <!-- 雙括弧:列印用 , 誇湖百分比:邏輯運算，流程控制 -->
+        <br />
+        {% endfor %}
+    </ul>
+{% endblock %}

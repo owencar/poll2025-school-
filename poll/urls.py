@@ -24,4 +24,5 @@ urlpatterns = [
     path("poll/", include("default.urls")),#include>>在所有呼叫default路徑前面都加上[poll/]
     path('', RedirectView.as_view(url=reverse_lazy('poll_list'))),
     path('account/', include("django.contrib.auth.urls")),
+    path("chat/", include("chat.urls")),
 ] 
