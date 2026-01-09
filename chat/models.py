@@ -1,8 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class CHAT(models.Model):   #文字
-    chat_id = models.IntegerField("留群編號") 
+class CHAT(models.Model):   #文字 
     subject = models.CharField("內文",max_length=200) 
     created = models.DateField("建立日期",auto_now_add=True) #發送時間
     user_name = models.CharField("使用者名稱",max_length=64)

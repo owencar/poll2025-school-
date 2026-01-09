@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Poll, Option 
-from django.views.generic import ListView, DetailView, RedirectView, CreateView, UpdateView, DeleteView #一個是獲取資料列表，一個是獲取詳細的資料;RedirectView 仔仔入夜麵食重新導向一次(把變更過的票數重新縣市一次)#create新增、update修改、delete刪除
+from django.views.generic import ListView, DetailView, RedirectView, CreateView, UpdateView, DeleteView #一個是獲取資料列表，一個是獲取詳細的資料;RedirectView 再載入頁面時重新導向一次(把變更過的票數重新顯示一次)#create新增、update修改、delete刪除
 from django.urls import reverse, reverse_lazy #給他一組路徑規則的名城她會反推一次路徑
 from django.contrib.auth.mixins import LoginRequiredMixin #確保只有登入才能進行操作 #注意這屬性不能單獨存在，只能依附於別的屬性增強他們
 
@@ -18,7 +18,7 @@ class Polllist(ListView):   #把listview的功能繼承給Polllist
     #尋找要顯示的頁面範本的規則(list view):[應用程式名稱/資料模型_list.html]
     #ex:[default/poll_list.html]>>>>他就會以(poll_list.html)作為頁面範本去顯示
 
-class PollView(DetailView):  #DetailView 會預設用urld中設定的pk參數去找ip
+class PollView(DetailView):  #DetailView 會預設用urls中設定的pk參數去找ip
     model = Poll
 
     #他會把獲得的參數傳給(頁面範本)[default/poll_detail.html]
