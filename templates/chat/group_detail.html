@@ -4,12 +4,13 @@
 
 {% block main %}
     <h1>{{ group.group_name }}</h1>
-    {% if user.is_authenticated %}
     <a href="{% url 'chat_create' group.id %}">新增留言</a>
-    {% endif %}
     {% for ch in chat_list %}
         <ul>
-            <li>{{ ch.user_name }}:{{ ch.subject }}  -{{ ch.created }} </li>
+            <li>{{ ch.user_name }}:{{ ch.subject }}  -{{ ch.created }} 
+            <a href="{% url 'chat_edit' ch.id %}">修改</a>   <!-- 記得要改變輸入的變數(ch.id) -->
+            <a href="{% url 'chat_delete' ch.id %}">刪除</a>
+            </li>
         </ul>
     {% endfor %}
     <br />

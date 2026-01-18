@@ -3,13 +3,15 @@
 {% block title %}留言板區_Group-ListView{% endblock %}
 
 {% block main %}
-    <h1>群組名稱-GroupView</h1>
-    {% if user.is_authenticated %}
+    <h1>群組名稱-GroupList</h1>
     <a href="{% url 'group_create' %}">新增對話群組</a>
-    {% endif %}
     <ul>
         {% for group in group_list %}
-        <li><a href="{% url 'chat_view' group.id %}">{{ group.group_name }}</a></li>
+        <li>
+            <a href="{% url 'chat_view' group.id %}">{{ group.group_name }}</a>      
+            <a href="{% url 'group_edit' group.id %}">修改</a>
+            <a href="{% url 'group_delete' group.id %}">刪除</a>
+        </li>      
         {% endfor %}
     </ul>
     <a href="{% url 'poll_list' %}">回到投票選單</a>

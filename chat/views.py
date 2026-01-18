@@ -21,12 +21,12 @@ class Chatview(DetailView):
         ctx['chat_list'] = CHAT.objects.filter(group_id = self.object.id)
         return ctx
     
-class Groupcreate(CreateView, LoginRequiredMixin):
+class Groupcreate(CreateView):
     model = GROUP
     fields = '__all__'
     success_url = reverse_lazy('group_list')
 
-class Chatcreate(CreateView, LoginRequiredMixin):
+class Chatcreate(CreateView):
     model = CHAT
     fields = ['user_name', 'subject']
 
@@ -36,3 +36,31 @@ class Chatcreate(CreateView, LoginRequiredMixin):
     
     def get_success_url(self):
         return reverse_lazy('chat_view', kwargs={'pk': self.kwargs['cid']})
+    
+
+class Groupupdate(UpdateView):
+    model = GROUP
+
+    fields = '__all__'
+
+    def get_success_url(self):
+        return reverse_lazy('chat_view', kwargs={'pk':self.object.id}) 
+
+
+class Chatupdate(UpdateView):
+    model = CHAT
+
+    fields = ['subject', 'user_name']
+    pk_url_kwarg = 'uid'  #改變變數
+
+    def get_success_url(self):
+        return reverse_lazy('chat_view', kwargs={'pk': self.object.id})
+
+class Groupdelete(DeleteView):
+    model = GROUP
+    success_url = reverse_lazy('group_list')
+
+class Chatdelete(DeleteView):
+    model = CHAT
+    def get_success_url(self):
+        return reverse_lazy('chat_view', kwargs={'pk':self.object.group_id})

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}刪除留言群組{% endblock %}
+
+{% block main %}
+<h1>刪除留言群組</h1>
+<p>
+    確定要刪除留言{{group.group_name}}嗎?
+</p>
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="確定刪除">
+</form>
+{% endblock %}

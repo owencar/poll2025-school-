@@ -53,7 +53,7 @@ class PollEdit(LoginRequiredMixin, UpdateView):
     fields = '__all__'
 
     def get_success_url(self):
-        return reverse_lazy('poll_view', kwargs={'pk':self.get.object.id})
+        return reverse_lazy('poll_view', kwargs={'pk':self.object.id})
 
 
 class OptionCreate(LoginRequiredMixin, CreateView):
