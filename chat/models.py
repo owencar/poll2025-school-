@@ -10,7 +10,7 @@ class CHAT(models.Model):   #文字
         return f"{self.user_name}-{self.subject}"
     
 class GROUP(models.Model): #群組
-    group_name = models.CharField("群組名稱")
+    group_name = models.CharField("群組名稱",max_length=64)
     desc = models.TextField("說明") #群組說明  
     def __str__(self):
         return self.group_name
